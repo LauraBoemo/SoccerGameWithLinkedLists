@@ -12,8 +12,8 @@
 #include "linkedlist.h"
 
 int main(void) {
-  ListTime * listTime = makeListTime("LAURA", "LAURA", "LAURA");
-  ListTime * listTime2 = makeListTime("MURILO", "MURILO", "MURILO");
+  ListTime * listTime = makeListTime();
+  addTimeInfo(listTime, "LAURA", "LAURA", "LAURA");
   display(listTime);
   return 0;
 }
