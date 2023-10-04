@@ -13,10 +13,13 @@
 
 int main(void) {
   ListTimes * listTimes = makeListTimes();
+  ListTecnicos * listTecnicos = makeListTecnicos();
+  ListJogadores * listJogadores = makeListJogadores();
   addTimeInfo(listTimes, "Gremio", "Arena do Gremio", "Porto Alegre");
-  addJogadorInfo(listTimes, "Laura Boemo", "Atacante", "Santa Maria", 20, 10);
-  addJogadorInfo(listTimes, "Murilo Leitao", "Goleiro", "Santa Maria", 21, 1);
+  addTecnicoInfo(listTecnicos, "Murilo Tecnico");
+  addJogadorInfo(listJogadores, "Laura Boemo", "Atacante", "Santa Maria", 20, 10);
   displayTimesInfo(listTimes);
-  displayJogadoresInfo(listTimes);
+  displayTecnicosInfo(listTecnicos);
+  displayJogadoresInfo(listJogadores);
   return 0;
 }
