@@ -127,15 +127,53 @@ void addTecnicoInfo(ListTecnicos * listTecnicos, char * nome){
 // Exibir informações dos Tecnicos
 
 void displayTecnicosInfo(ListTecnicos * listTecnicos) {
+  if(listTecnicos->nodeTecnico == NULL) {
+    printf("0 tecnicos cadastrados!");
+  } else {
+    NodeTecnico * current = listTecnicos->nodeTecnico;
+
+    for(; current != NULL; current = current->next) {
+      printf("%s\n", current->nome);
+    }
+  }
+}
+
+// Pesquisar informacao de um Tecnico
+
+void searchTecnicoInfo(ListTecnicos * listTecnicos, char * nome) {
   NodeTecnico * current = listTecnicos->nodeTecnico;
 
   if(listTecnicos->nodeTecnico == NULL) 
     return;
   
   for(; current != NULL; current = current->next) {
-    printf("%s\n", current->nome);
+    if(current->nome == nome) {
+      printf("%s\n", current->nome);
+    }
   }
 }
+
+// Deletar um Tecnico
+
+void deleteTecnico(ListTecnicos * listTecnicos, char * nome){
+  NodeTecnico * current = listTecnicos->nodeTecnico;            
+  NodeTecnico * previous = current;      
+
+  while(current != NULL){           
+    if(current->nome == nome){      
+      previous->next = current->next;
+
+      if(current == listTecnicos->nodeTecnico)
+        listTecnicos->nodeTecnico = current->next;
+      
+      free(current);
+      return;
+    }                  
+
+    previous = current;             
+    current = current->next;        
+  }                                 
+}         
 
 /*
 
@@ -198,17 +236,57 @@ void addTimeInfo(ListTimes * listTimes, char * nome, char * estadio, char * cida
 // Exibir informações dos Times
 
 void displayTimesInfo(ListTimes * listTimes) {
+  if(listTimes->nodeTime == NULL) {
+    printf("0 times cadastrados!");
+  } else {
+    NodeTime * current = listTimes->nodeTime;
+
+    for(; current != NULL; current = current->next) {
+      printf("%s\n", current->nome);
+      printf("%s\n", current->estadio);
+      printf("%s\n", current->cidade);
+    }
+  }
+}
+
+// Pesquisar informacao de um Time
+
+void searchTimeInfo(ListTimes * listTimes, char * nome) {
   NodeTime * current = listTimes->nodeTime;
 
   if(listTimes->nodeTime == NULL) 
     return;
   
   for(; current != NULL; current = current->next) {
-    printf("%s\n", current->nome);
-    printf("%s\n", current->estadio);
-    printf("%s\n", current->cidade);
+    if(current->nome == nome) {
+      printf("%s\n", current->nome);
+      printf("%s\n", current->estadio);
+      printf("%s\n", current->cidade);  
+    }
   }
 }
+
+// Deletar um Time
+
+void deleteTime(ListTimes * listTimes, char * nome){
+  NodeTime * current = listTimes->nodeTime;            
+  NodeTime * previous = current;      
+
+  while(current != NULL){           
+    if(current->nome == nome){      
+      previous->next = current->next;
+
+      if(current == listTimes->nodeTime)
+        listTimes->nodeTime = current->next;
+      
+      free(current);
+      return;
+    }                  
+
+    previous = current;             
+    current = current->next;        
+  }                                 
+}     
 
 /*
 
@@ -232,7 +310,7 @@ ListJogadores * makeListJogadores() {
   return listJogadores;
 }
 
-// Criar Nó de Tecnico
+// Criar Nó de Jogador
 
 NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
   NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
@@ -252,7 +330,7 @@ NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int 
   return newNodeJogador;
 }
 
-// Adicionar informações de novo Tecnico
+// Adicionar informações de novo Jogador
 
 void addJogadorInfo(ListJogadores * listJogadores, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
   NodeJogador * current = NULL;
@@ -270,21 +348,78 @@ void addJogadorInfo(ListJogadores * listJogadores, char * nome, char * posicao, 
   }
 }
 
-// Exibir informações dos Tecnicos
+// Exibir informações dos Jogadores
 
 void displayJogadoresInfo(ListJogadores * listJogadores) {
+  if(listJogadores->nodeJogador == NULL) {
+    printf("\n0 jogadores cadastrados!\n");
+  } else {
+    NodeJogador * current = listJogadores->nodeJogador;
+
+    for(; current != NULL; current = current->next) {
+      printf("%s\n", current->nome);
+      printf("%s\n", current->posicao);
+      printf("%s\n", current->cidade);
+      printf("%d\n", current->idade);
+      printf("%d\n", current->numeroCamisa);
+    }
+  }
+}
+
+// Pesquisar informacao de um Jogador
+
+void searchJogadorInfo(ListJogadores * listJogadores, char * nome) {
   NodeJogador * current = listJogadores->nodeJogador;
 
   if(listJogadores->nodeJogador == NULL) 
     return;
   
   for(; current != NULL; current = current->next) {
-    printf("%s\n", current->nome);
-    printf("%s\n", current->posicao);
-    printf("%s\n", current->cidade);
-    printf("%d\n", current->idade);
-    printf("%d\n", current->numeroCamisa);
+    if(current->nome == nome) {
+      printf("%s\n", current->nome);
+      printf("%s\n", current->posicao);
+      printf("%s\n", current->cidade);
+      printf("%d\n", current->idade);
+      printf("%d\n", current->numeroCamisa);
+    }
   }
+}
+
+// Deletar um Jogador
+
+void deleteJogador(ListJogadores * listJogadores, char * nome) {
+  NodeJogador * current = listJogadores->nodeJogador;            
+  NodeJogador * previous = current;      
+
+  while(current != NULL){           
+    if(current->nome == nome){      
+      previous->next = current->next;
+
+      if(current == listJogadores->nodeJogador)
+        listJogadores->nodeJogador = current->next;
+      
+      free(current);
+      return;
+    }                  
+
+    previous = current;             
+    current = current->next;        
+  }                                 
+}  
+
+// Deletar todos os Jogadores
+
+void destroyJogadores(ListJogadores * listJogadores) {
+  NodeJogador * current = listJogadores->nodeJogador;
+  NodeJogador * next = current;
+
+  while(current != NULL){
+    next = current->next;
+    free(current);
+    current = next;
+  }
+  
+  free(listJogadores);
 }
 
 /*
