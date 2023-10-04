@@ -12,8 +12,11 @@
 #include "linkedlist.h"
 
 int main(void) {
-  ListTime * listTime = makeListTime();
-  addTimeInfo(listTime, "LAURA", "LAURA", "LAURA");
-  display(listTime);
+  ListTimes * listTimes = makeListTimes();
+  addTimeInfo(listTimes, "Gremio", "Arena do Gremio", "Porto Alegre");
+  addJogadorInfo(listTimes, "Laura Boemo", "Atacante", "Santa Maria", 20, 10);
+  addJogadorInfo(listTimes, "Murilo Leitao", "Goleiro", "Santa Maria", 21, 1);
+  displayTimesInfo(listTimes);
+  displayJogadoresInfo(listTimes);
   return 0;
 }

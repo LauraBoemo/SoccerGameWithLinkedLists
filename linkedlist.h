@@ -1,22 +1,18 @@
 #ifndef LINKEDLIST_HEADER
 #define LINKEDLIST_HEADER
 
-typedef struct node Node;
-
 typedef struct nodeTime NodeTime;
 
 typedef struct nodeJogador NodeJogador;
 
-typedef struct list List;
-
-typedef struct listTime ListTime;
+typedef struct listTimes ListTimes;
 
 typedef struct listJogadores ListJogadores;
 
-ListTime * makeListTime();
-void addTimeInfo(ListTime * listTime, char * nome, char * estadio, char * cidade);
-void delete(int data, List * list);
-void display(ListTime * listTime);
-void destroy(ListTime * listTime);
+ListTimes * makeListTimes();
+void addTimeInfo(ListTimes * listTimes, char * nome, char * estadio, char * cidade);
+void displayTimesInfo(ListTimes * listTimes);
+void addJogadorInfo(ListTimes * listTimes, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa);
+void displayJogadoresInfo(ListTimes * listTimes);
 
 #endif

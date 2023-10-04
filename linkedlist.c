@@ -2,15 +2,37 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
-struct list {
-  Node * head; 
-};
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Typedefining Jogador
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Struct do nó gerado para cada jogador 
 
 struct nodeJogador {
   char *nome, *posicao, *cidade;
   int idade, numeroCamisa;
-  struct node * next;
+  struct nodeJogador * next;
 };
+
+// Struct da lista gerada para os jogadores
+
+struct listJogadores {
+  NodeJogador * nodeJogador;
+};
+
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Typedefining Time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Struct do nó gerado para cada time 
 
 struct nodeTime {
   char *nome, *estadio, *cidade;
@@ -18,16 +40,35 @@ struct nodeTime {
   struct nodeTime * next;
 };
 
-struct listJogadores {
-  Node * head; 
-};
+// Struct da lista gerada para os times
 
-struct listTime {
-  Node * head; 
+struct listTimes {
   NodeTime * nodeTime;
 };
 
-NodeTime * createNodeTime(char * nome, char * estadio, char * cidade);
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Funções de Time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Criar Lista de Times (e, consequentemente, de Jogadores)
+
+ListTimes * makeListTimes() {
+  ListTimes * listTimes = malloc(sizeof(ListTimes));
+
+  if (!listTimes) {
+    return NULL;
+  }
+
+  listTimes->nodeTime = NULL;
+
+  return listTimes;
+}
+
+// Criar Nó de Time
 
 NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
   NodeTime * newNodeTime = malloc(sizeof(NodeTime));
@@ -45,13 +86,15 @@ NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
   return newNodeTime;
 }
 
-void addTimeInfo(ListTime * listTime, char * nome, char * estadio, char * cidade){
+// Adicionar informações de novo Time
+
+void addTimeInfo(ListTimes * listTimes, char * nome, char * estadio, char * cidade){
   NodeTime * current = NULL;
 
-  if(listTime->head == NULL) {
-    listTime->head = createNodeTime(nome, estadio, cidade);
+  if(listTimes->nodeTime == NULL) {
+    listTimes->nodeTime = createNodeTime(nome, estadio, cidade);
   } else {
-    current = listTime->head; 
+    current = listTimes->nodeTime; 
 
     while (current->next!=NULL){
       current = current->next;
@@ -61,54 +104,12 @@ void addTimeInfo(ListTime * listTime, char * nome, char * estadio, char * cidade
   }
 }
 
-// NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int idade, int numeroCamisa) {
-//   NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
+// Exibir informações dos Times
 
-//   if (!newNodeJogador) {
-//     return NULL;
-//   }
-  
-//   newNodeJogador->nome = nome;
-//   newNodeJogador->posicao = posicao;
-//   newNodeJogador->cidade = cidade;
-//   newNodeJogador->idade = idade;
-//   newNodeJogador->numeroCamisa = numeroCamisa;
+void displayTimesInfo(ListTimes * listTimes) {
+  NodeTime * current = listTimes->nodeTime;
 
-//   newNodeJogador->next = NULL;
-  
-//   return newNodeJogador;
-// }
-
-ListTime * makeListTime() {
-  ListTime * listTime = malloc(sizeof(ListTime));
-
-  if (!listTime) {
-    return NULL;
-  }
-
-  listTime->head = NULL;
-
-  return listTime;
-}
-
-// void addTimeInfo(ListTime * listTime, char * nome, char * estadio, char * cidade){
-//   Node * current = NULL;
-
-//   if(listTime->head == NULL){
-//     listTime->head = createNode(nome, estadio, cidade);
-//   } else {
-//     current = listTime->head; 
-//     while (current->next!=NULL){
-//       current = current->next;
-//     }
-//     current->next = createNode(data);
-//   }
-// }
-
-void display(ListTime * listTime) {
-  NodeTime * current = listTime->head;
-
-  if(listTime->head == NULL) 
+  if(listTimes->nodeTime == NULL) 
     return;
   
   for(; current != NULL; current = current->next) {
@@ -118,50 +119,65 @@ void display(ListTime * listTime) {
   }
 }
 
-// void addJogador(ListTime * list, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa) {
-//   Node * current = NULL;
-  
-//   if(list->head == NULL){
-//     list->head = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
-//   } else {
-//     current = list->head; 
-    
-//     while (current->next!=NULL) {
-//       current = current->next;
-//     }
-    
-//     current->next = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
-//   }
-// }
+/*
 
-// void delete(int data, List * list){
-//   Node * current = list->head;            
-//   Node * previous = current;           
-  
-//   while(current != NULL){           
-//     if(current->data == data){      
-//       previous->next = current->next;
-      
-//       if(current == list->head)
-//         list->head = current->next;
-      
-//       free(current);
-      
-//       return;
-//     }  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Funções de Jogador
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-//     previous = current;             
-//     current = current->next;        
-//   }                                 
-// }
+*/
 
-void destroy(ListTime * listTime){
-  NodeTime * current = listTime->head;
-  NodeTime * next = current;
-  while(current != NULL){
-    next = current->next;
-    free(current);
-    current = next;
+// Criar Nó de Jogador
+
+NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
+  NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
+
+  if (!newNodeJogador) {
+    return NULL;
   }
-  free(listTime);
+
+  newNodeJogador->nome = nome;
+  newNodeJogador->posicao = posicao;
+  newNodeJogador->cidade = cidade;
+  newNodeJogador->idade = idade;
+  newNodeJogador->numeroCamisa = numeroCamisa;
+
+  newNodeJogador->next = NULL;
+  
+  return newNodeJogador;
+}
+
+// Adicionar informações de novo Jogador
+
+void addJogadorInfo(ListTimes * listTimes, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
+  NodeJogador * current = NULL;
+
+  if(listTimes->nodeTime->jogadores == NULL) {
+    listTimes->nodeTime->jogadores = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
+  } else {
+    current = listTimes->nodeTime->jogadores; 
+  
+    while (current->next!=NULL){
+      current = current->next;
+    }
+
+    current->next = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
+  }
+}
+
+// Exibir informações dos Jogadores
+
+void displayJogadoresInfo(ListTimes * listTimes) {
+  NodeJogador * current = listTimes->nodeTime->jogadores;
+
+  if(listTimes->nodeTime->jogadores == NULL) 
+    return;
+  
+  for(; current != NULL; current = current->next) {
+    printf("%s\n", current->nome);
+    printf("%s\n", current->posicao);
+    printf("%s\n", current->cidade);
+    printf("%d\n", current->idade);
+    printf("%d\n", current->numeroCamisa);
+  }
 }
