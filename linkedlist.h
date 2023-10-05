@@ -23,6 +23,8 @@ void displayTimesInfo(ListTimes * listTimes);
 void searchTimeInfo(ListTimes * listTimes, char * nome);
 void deleteTime(ListTimes * listTimes, char * nome);
 void destroyTimes(ListTimes * listTimes);
+void addJogadorRelacionadoTime(ListTimes * listTimes, char * nomeTime, ListJogadores * listJogadores, char * nomeJogador);
+void displayJogadoresRelacionadosTime(ListTimes * listTimes, char * nomeTime);
 
 // Tecnicos
 

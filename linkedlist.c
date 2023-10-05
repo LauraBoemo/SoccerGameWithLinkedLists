@@ -175,6 +175,21 @@ void deleteTecnico(ListTecnicos * listTecnicos, char * nome){
   }                                 
 }         
 
+// Deletar todos os Tecnicos
+
+void destroyTecnicos(ListTecnicos * listTecnicos) {
+  NodeTecnico * current = listTecnicos->nodeTecnico;
+  NodeTecnico * next = current;
+
+  while(current != NULL){
+    next = current->next;
+    free(current);
+    current = next;
+  }
+  
+  free(listTecnicos);
+}
+
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -287,6 +302,21 @@ void deleteTime(ListTimes * listTimes, char * nome){
     current = current->next;        
   }                                 
 }     
+
+// Deletar todos os Times
+
+void destroyTimes(ListTimes * listTimes) {
+  NodeTime * current = listTimes->nodeTime;
+  NodeTime * next = current;
+
+  while(current != NULL){
+    next = current->next;
+    free(current);
+    current = next;
+  }
+  
+  free(listTimes);
+}
 
 /*
 
@@ -425,79 +455,96 @@ void destroyJogadores(ListJogadores * listJogadores) {
 /*
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    Funções de Jogador Relacionado
+                      Jogadores Relacionados
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
 
-// Contar quantos jogadores relacionados há no Nó
+// Criar Jogador relacionado ao Time
 
-int countNodes(struct nodeJogador * jogador) {
-  int count = 0;
-
-  while(jogador != NULL){
-      jogador = jogador->next;
-      count++;
-  }
-
-  return count;
-}
-
-// Criar Nó de Jogador Relacionado
-
-NodeJogador * createNodeJogadorRelacionado(char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
-  NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
-
-  if (!newNodeJogador) {
+NodeTime * createNodeJogadorRelacionado(ListJogadores * listJogadores, char * nomeJogador) {
+  if (listJogadores->nodeJogador == NULL) {
+    printf("Não existem jogadores cadastrados.");
     return NULL;
+  } else { 
+    NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
+    NodeJogador * current = listJogadores->nodeJogador;
+
+    for(; current != NULL; current = current->next) {
+      if(current->nome == nomeJogador) {
+        newNodeJogador->nome = current->nome;
+        newNodeJogador->posicao = current->posicao;
+        newNodeJogador->cidade = current->cidade;
+        newNodeJogador->idade = current->idade;
+        newNodeJogador->numeroCamisa = current->numeroCamisa;
+
+        newNodeJogador->next = NULL;
+      
+        return newNodeJogador;
+      }
+    }
   }
-
-  newNodeJogador->nome = nome;
-  newNodeJogador->posicao = posicao;
-  newNodeJogador->cidade = cidade;
-  newNodeJogador->idade = idade;
-  newNodeJogador->numeroCamisa = numeroCamisa;
-
-  newNodeJogador->next = NULL;
-  
-  return newNodeJogador;
+  printf("O jogador desejado não foi encontrado.");
 }
 
-// Adicionar informações de novo Jogador Relacionado
+// Adicioar Jogadores relacionado ao Time
 
-void addJogadorRelacionadoInfo(ListTimes * listTimes, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa){
-  NodeJogador * current = NULL;
+void addJogadorRelacionadoTime(ListTimes * listTimes, char * nomeTime, ListJogadores * listJogadores, char * nomeJogador) {
+  if (listTimes->nodeTime == NULL) {
+    printf("Não existem times cadastrados.");
+    return;
+  } 
 
-  if(listTimes->nodeTime->jogadores == NULL) {
-    listTimes->nodeTime->jogadores = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
-  } else {
-    current = listTimes->nodeTime->jogadores; 
-  
-    if(countNodes(current) > 25) {
-      printf("Time cheio!"); // Um time não pode ter mais de 25 jogadores relacionados
-    } else {
+  NodeTime * current = listTimes->nodeTime; 
+
+  for(; current != NULL; current = current->next) {
+    if(current->jogadores == NULL) {
+      listTimes->nodeTime->jogadores = createNodeJogadorRelacionado(listJogadores, nomeJogador);
+      return;
+    }
+
+    if(current->nome == nomeTime) {
       while (current->next!=NULL){
         current = current->next;
       }
-
-      current->next = createNodeJogador(nome, posicao, cidade, idade, numeroCamisa);
+      current->next = createNodeJogadorRelacionado(listJogadores, nomeJogador);
+      return;
     }
   }
+
+  printf("O time desejado não foi encontrado!");
 }
 
-// Exibir informações dos Jogadores Relacionados
+// Exibir Jogadores relacionado ao Time
 
-void displayJogadoresRelacionadosInfo(ListTimes * listTimes) {
-  NodeJogador * current = listTimes->nodeTime->jogadores;
-
-  if(listTimes->nodeTime->jogadores == NULL) 
+void displayJogadoresRelacionadosTime(ListTimes * listTimes, char * nomeTime) {
+  if(listTimes->nodeTime == NULL) {
+    printf("\n0 times cadastrados!\n");
     return;
+  } 
   
-  for(; current != NULL; current = current->next) {
-    printf("%s\n", current->nome);
-    printf("%s\n", current->posicao);
-    printf("%s\n", current->cidade);
-    printf("%d\n", current->idade);
-    printf("%d\n", current->numeroCamisa);
+  NodeTime * currentTime = listTimes->nodeTime;
+
+  for(; currentTime != NULL; currentTime = currentTime->next) {
+    if(currentTime->nome == nomeTime) {
+      if(currentTime->jogadores == NULL) {
+        printf("\n0 jogadores cadastrados!\n");
+        return;
+      } 
+
+      NodeJogador * currentJogador = currentTime->jogadores;
+
+      for(; currentJogador != NULL; currentJogador = currentJogador->next) {
+        printf("%s\n", currentJogador->nome);
+        printf("%s\n", currentJogador->posicao);
+        printf("%s\n", currentJogador->cidade);
+        printf("%d\n", currentJogador->idade);
+        printf("%d\n", currentJogador->numeroCamisa);
+      }
+
+      return;
+    }
   }
+
+  printf("\nO time desejado não foi encontrado!\n");
 }
