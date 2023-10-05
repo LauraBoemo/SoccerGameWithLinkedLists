@@ -58,7 +58,7 @@ struct listJogadores {
 
 struct nodeTime {
   char *nome, *estadio, *cidade; // Cada time deve ter ao menos os seguintes dados: nome, estádio, cidade
-  struct listJogadores *jogadores;
+  struct nodeJogador * jogadores;
   struct nodeTime * next;
 };
 
@@ -463,56 +463,56 @@ void destroyJogadores(ListJogadores * listJogadores) {
 // Criar Jogador relacionado ao Time
 
 NodeTime * createNodeJogadorRelacionado(ListJogadores * listJogadores, char * nomeJogador) {
-  if (listJogadores->nodeJogador == NULL) {
-    printf("Não existem jogadores cadastrados.");
+  NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
+  NodeJogador * currentJogador = listJogadores->nodeJogador;
+  
+  if (!newNodeJogador) {
     return NULL;
-  } else { 
-    NodeJogador * newNodeJogador = malloc(sizeof(NodeJogador));
-    NodeJogador * current = listJogadores->nodeJogador;
-
-    for(; current != NULL; current = current->next) {
-      if(current->nome == nomeJogador) {
-        newNodeJogador->nome = current->nome;
-        newNodeJogador->posicao = current->posicao;
-        newNodeJogador->cidade = current->cidade;
-        newNodeJogador->idade = current->idade;
-        newNodeJogador->numeroCamisa = current->numeroCamisa;
-
-        newNodeJogador->next = NULL;
-      
-        return newNodeJogador;
-      }
-    }
   }
-  printf("O jogador desejado não foi encontrado.");
+
+  for(; currentJogador != NULL; currentJogador = currentJogador->next) {
+    if(currentJogador->nome == nomeJogador) {
+      newNodeJogador->nome = currentJogador->nome;
+      newNodeJogador->posicao = currentJogador->posicao;
+      newNodeJogador->cidade = currentJogador->cidade;
+      newNodeJogador->idade = currentJogador->idade;
+      newNodeJogador->numeroCamisa = currentJogador->numeroCamisa;
+
+      newNodeJogador->next = NULL;
+    
+      return newNodeJogador;
+    }
+    
+    printf("O jogador desejado não foi encontrado.\n"); 
+  }
 }
 
 // Adicioar Jogadores relacionado ao Time
 
 void addJogadorRelacionadoTime(ListTimes * listTimes, char * nomeTime, ListJogadores * listJogadores, char * nomeJogador) {
   if (listTimes->nodeTime == NULL) {
-    printf("Não existem times cadastrados.");
+    printf("\n0 times cadastrados!\n");
     return;
   } 
 
-  NodeTime * current = listTimes->nodeTime; 
+  NodeTime * currentTime = listTimes->nodeTime;  
 
-  for(; current != NULL; current = current->next) {
-    if(current->jogadores == NULL) {
-      listTimes->nodeTime->jogadores = createNodeJogadorRelacionado(listJogadores, nomeJogador);
-      return;
-    }
+  for(; currentTime != NULL; currentTime = currentTime->next) {
+    if(currentTime->nome == nomeTime) {
+      NodeJogador * currentJogador = currentTime->jogadores;
 
-    if(current->nome == nomeTime) {
-      while (current->next!=NULL){
-        current = current->next;
+      if(currentJogador == NULL) {
+        currentJogador = createNodeJogadorRelacionado(listJogadores, nomeJogador);
+        return;
       }
-      current->next = createNodeJogadorRelacionado(listJogadores, nomeJogador);
-      return;
+      
+      while (currentJogador->next!=NULL) {
+        currentJogador = currentJogador->next;
+      }
+      
+      currentJogador->next = createNodeJogadorRelacionado(listJogadores, nomeJogador);
     }
   }
-
-  printf("O time desejado não foi encontrado!");
 }
 
 // Exibir Jogadores relacionado ao Time
@@ -527,14 +527,15 @@ void displayJogadoresRelacionadosTime(ListTimes * listTimes, char * nomeTime) {
 
   for(; currentTime != NULL; currentTime = currentTime->next) {
     if(currentTime->nome == nomeTime) {
-      if(currentTime->jogadores == NULL) {
-        printf("\n0 jogadores cadastrados!\n");
-        return;
-      } 
-
       NodeJogador * currentJogador = currentTime->jogadores;
+      
+      // if(currentJogador == NULL) {
+      //   printf("\n0 jogadores cadastrados!\n");
+      //   return;
+      // }
 
       for(; currentJogador != NULL; currentJogador = currentJogador->next) {
+        printf("text");
         printf("%s\n", currentJogador->nome);
         printf("%s\n", currentJogador->posicao);
         printf("%s\n", currentJogador->cidade);

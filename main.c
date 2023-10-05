@@ -22,9 +22,9 @@ int main(void) {
   addTecnicoInfo(listTecnicos, "Luana Tecnica");
   addJogadorInfo(listJogadores, "Laura Boemo", "Atacante", "Santa Maria", 20, 10);
   addJogadorInfo(listJogadores, "Murilo Leitao", "Goleiro", "Santa Maria", 21, 1);
-  searchTimeInfo(listTimes, "Gremio");
+  // searchTimeInfo(listTimes, "Gremio");
   addJogadorRelacionadoTime(listTimes, "Gremio", listJogadores, "Laura Boemo");
-  addJogadorRelacionadoTime(listTimes, "Gremio", listJogadores, "Murilo Leitao");
+  // addJogadorRelacionadoTime(listTimes, "Gremio", listJogadores, "Murilo Leitao");
   displayJogadoresRelacionadosTime(listTimes, "Gremio");
   // displayTimesInfo(listTimes);
   // displayTecnicosInfo(listTecnicos);
