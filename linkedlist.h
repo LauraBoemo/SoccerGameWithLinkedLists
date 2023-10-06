@@ -15,6 +15,13 @@ typedef struct listTecnicos ListTecnicos;
 typedef struct nodeJogador NodeJogador;
 typedef struct listJogadores ListJogadores;
 
+// Jogos
+typedef struct nodeJogo NodeJogo;
+typedef struct listJogos ListJogos;
+
+// Lances
+typedef struct nodeLance NodeLance;
+
 // Times
 
 ListTimes * makeListTimes();
@@ -42,5 +49,10 @@ void displayJogadoresInfo(ListJogadores * listJogadores);
 void searchJogadorInfo(ListJogadores * listJogadores, char * nome);
 void deleteJogador(ListJogadores * listJogadores, char * nome);
 void destroyJogadores(ListJogadores * listJogadores);
+
+// Jogo
+ListJogos * makeListJogos();
+void addJogoInfo(ListJogos * listJogos, char * timeA, char * timeB);
+void displayJogosInfo(ListJogos * listJogos);
 
 #endif

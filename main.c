@@ -15,6 +15,7 @@ int main(void) {
   ListTimes * listTimes = makeListTimes();
   ListTecnicos * listTecnicos = makeListTecnicos();
   ListJogadores * listJogadores = makeListJogadores();
+  ListJogos * listJogos = makeListJogadores();
   addTimeInfo(listTimes, "Gremio", "Arena do Gremio", "Porto Alegre");
   addTimeInfo(listTimes, "Inter", "Beira Rio", "Porto Alegre");
   addTecnicoInfo(listTecnicos, "Murilo Tecnico");
@@ -31,13 +32,15 @@ int main(void) {
   // deleteTecnico(listTecnicos, "Murilo Tecnico");
   // displayTecnicosInfo(listTecnicos);
   // displayJogadoresInfo(listJogadores);
-  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Laura Boemo");
-  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Murilo Leitao");
-  displayJogadoresRelaciondosAoTimeInfo(listTimes, "Gremio");
   // destroyJogadores(listJogadores);
   // displayJogadoresInfo(listJogadores);
   // searchTimeInfo(listTimes, "Gremio");
   // searchJogadorInfo(listJogadores, "Laura Boemo");
   // searchTecnicoInfo(listTecnicos, "Laura Tecnica");
+  // addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Laura Boemo");
+  // addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Murilo Leitao");
+  // displayJogadoresRelaciondosAoTimeInfo(listTimes, "Gremio");
+  addJogoInfo(listJogos, "Gremio", "Inter");
+  displayJogosInfo(listJogos);
   return 0;
 }

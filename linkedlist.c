@@ -66,14 +66,53 @@ struct listJogadores {
 
 struct nodeTime {
   char *nome, *estadio, *cidade; // Cada time deve ter ao menos os seguintes dados: nome, estádio, cidade
-  struct nodeTime * next;
   struct nodeJogador * jogadores;
+  struct nodeTime * next;
 };
 
 // Struct da lista gerada para os times
 
 struct listTimes {
   NodeTime * nodeTime;
+};
+
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Typedefining Jogo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Struct do nó gerado para cada jogo 
+
+struct nodeJogo {
+  struct nodeTime * timeA, * timeB;
+  struct nodeJogador * escalacaoA, * escalacaoB;
+  struct nodeJogo * next;
+};
+
+// Struct da lista gerada para os jogo
+
+struct listJogos {
+  NodeJogo * nodeJogo;
+};
+
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Typedefining Lance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Struct do nó gerado para cada lance 
+
+struct nodeLance {
+  char * lance;
+  struct nodeTime * time;
+  struct nodeJogador * jogador;
+  struct nodeLance * next;
 };
 
 /*
@@ -543,4 +582,148 @@ void destroyJogadores(ListJogadores * listJogadores) {
   }
   
   free(listJogadores);
+}
+
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Funções de Jogo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Criar Lista de Jogos
+
+ListJogos * makeListJogos() {
+  ListJogos * listJogos = malloc(sizeof(ListJogos));
+
+  if (!listJogos) {
+    printf("Não foi possível inicializar lista de jogos.");
+    return NULL;
+  }
+
+  listJogos->nodeJogo = NULL;
+
+  return listJogos;
+}
+
+// Criar Nó de Jogador
+
+NodeJogador * createNodeJogadorEscaladoAoJogo(char * nomeJogador) {
+  NodeJogador * newNodeJogadorEscaladoAoJogo = malloc(sizeof(NodeJogador));
+
+  if (!newNodeJogadorEscaladoAoJogo) {
+    printf( "Não foi possível inicializar nó de jogador escalado ao jogo.");
+    return NULL;
+  }
+
+  newNodeJogadorEscaladoAoJogo->nome = nomeJogador;
+  newNodeJogadorEscaladoAoJogo->next = NULL;
+  
+  return newNodeJogadorEscaladoAoJogo;
+}
+
+// Criar Nó de Jogo
+
+NodeJogo * createNodeJogo(char * timeA, char * timeB) {
+  NodeJogo * newNodeJogo = malloc(sizeof(NodeJogador));
+
+  if (!newNodeJogo) {
+    printf("Não foi possível inicializar nó de jogo.");
+    return NULL;
+  }
+
+  newNodeJogo->timeA = timeA;
+  newNodeJogo->timeB = timeB;
+
+  printf("Insira a escalação para o time %s", timeA);
+  for(int aux = 1; aux < 12; aux++) {
+    char nomeJogador[100];
+    printf("Insira o nome do jogador %d: ", aux);
+    scanf("%s", &nomeJogador);
+
+    NodeJogador * currentJogador = NULL;
+
+    if(newNodeJogo->escalacaoA == NULL) {
+      newNodeJogo->escalacaoA = createNodeJogadorEscaladoAoJogo(nomeJogador);
+    } else {
+      currentJogador = newNodeJogo->escalacaoA;
+      while (currentJogador->next!=NULL) {
+        currentJogador = currentJogador->next;
+      }
+
+      currentJogador->next = createNodeJogadorEscaladoAoJogo(nomeJogador);
+    }
+  }
+
+  printf("Insira a escalação para o time %s", timeB);
+  for(int aux = 1; aux < 12; aux++) {
+    char nomeJogador[100];
+    printf("Insira o nome do jogador %d: ", aux);
+    scanf("%s", &nomeJogador);
+
+    NodeJogador * currentJogador = NULL;
+
+    if(newNodeJogo->escalacaoB == NULL) {
+      newNodeJogo->escalacaoB = createNodeJogadorEscaladoAoJogo(nomeJogador);
+    } else {
+      currentJogador = newNodeJogo->escalacaoB;
+      while (currentJogador->next!=NULL) {
+        currentJogador = currentJogador->next;
+      }
+
+      currentJogador->next = createNodeJogadorEscaladoAoJogo(nomeJogador);
+    }
+  }
+  
+  newNodeJogo->next = NULL;
+  
+  return newNodeJogo;
+}
+
+// Adicionar informações de novo Jogo
+
+void addJogoInfo(ListJogos * listJogos, char * timeA, char * timeB) {
+  NodeJogo * currentJogo = NULL;
+
+  if(listJogos->nodeJogo == NULL) {
+    listJogos->nodeJogo = createNodeJogo(timeA, timeB);
+  } else {
+    currentJogo = listJogos->nodeJogo;
+    while (currentJogo->next!=NULL) {
+      currentJogo = currentJogo->next;
+    }
+
+    currentJogo->next = createNodeJogo(timeA, timeB);
+  }
+}
+
+// Exibir informações dos Jogos
+
+struct nodeTime * timeA, * timeB;
+struct nodeJogador * escalacaoA, * escalacaoB;
+struct nodeJogo * next;
+
+void displayJogosInfo(ListJogos * listJogos) {
+  if(listJogos->nodeJogo == NULL) {
+    printf("\nNão há cadastrados!\n");
+  } else {
+    NodeJogo * currentJogo = listJogos->nodeJogo;
+    for(; currentJogo != NULL; currentJogo = currentJogo->next) {
+      printf("%s\n", currentJogo->timeA);
+      printf("%s\n", currentJogo->timeB);
+    
+      printf("Escalacao A\n");
+      NodeJogador * escalacaoTimeA = currentJogo->escalacaoA;
+      for(; escalacaoTimeA != NULL; escalacaoTimeA = escalacaoTimeA->next) {
+        printf("%s\n", escalacaoTimeA->nome);
+      }
+
+      printf("Escalacao B\n");
+      NodeJogador * escalacaoTimeB = currentJogo->escalacaoB;
+      for(; escalacaoTimeB != NULL; escalacaoTimeB = escalacaoTimeB->next) {
+        printf("%s\n", escalacaoTimeB->nome);
+      }
+    }
+  }
 }
