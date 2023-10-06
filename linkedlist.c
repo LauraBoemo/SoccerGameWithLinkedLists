@@ -607,123 +607,111 @@ ListJogos * makeListJogos() {
   return listJogos;
 }
 
-// Criar Nó de Jogador
+NodeJogador * createNodeJogadorEscalado(char * nome) {
+  NodeJogador * newNodeJogadorEscalado = malloc(sizeof(NodeJogador));
 
-NodeJogador * createNodeJogadorEscaladoAoJogo(char * nomeJogador) {
-  NodeJogador * newNodeJogadorEscaladoAoJogo = malloc(sizeof(NodeJogador));
-
-  if (!newNodeJogadorEscaladoAoJogo) {
-    printf( "Não foi possível inicializar nó de jogador escalado ao jogo.");
+  if(!newNodeJogadorEscalado) {
+    printf("Não foi possível relacionar novo jogador a escalacao do time.");
     return NULL;
   }
 
-  newNodeJogadorEscaladoAoJogo->nome = nomeJogador;
-  newNodeJogadorEscaladoAoJogo->next = NULL;
-  
-  return newNodeJogadorEscaladoAoJogo;
+  newNodeJogadorEscalado->nome = nome;
+  newNodeJogadorEscalado->next = NULL;
+
+  return newNodeJogadorEscalado;
 }
 
-// Criar Nó de Jogo
-
 NodeJogo * createNodeJogo(char * timeA, char * timeB) {
-  NodeJogo * newNodeJogo = malloc(sizeof(NodeJogador));
+  NodeJogo * newNodeJogo = malloc(sizeof(NodeJogo));
 
-  if (!newNodeJogo) {
-    printf("Não foi possível inicializar nó de jogo.");
+  if(!newNodeJogo) {
+    printf("Não foi possível relacionar novo jogo ao time.");
     return NULL;
   }
 
   newNodeJogo->timeA = timeA;
   newNodeJogo->timeB = timeB;
 
-  printf("Insira a escalação para o time %s", timeA);
-  for(int aux = 1; aux < 12; aux++) {
-    char nomeJogador[100];
-    printf("Insira o nome do jogador %d: ", aux);
+  printf("Informe a escalacao para o time %s\n", timeA);
+  for(int auxA = 1; auxA < 12; auxA++) {
+    char * nomeJogador;
+    printf("Informe o nome do jogador %d:", auxA);
     scanf("%s", &nomeJogador);
-
-    NodeJogador * currentJogador = NULL;
 
     if(newNodeJogo->escalacaoA == NULL) {
-      newNodeJogo->escalacaoA = createNodeJogadorEscaladoAoJogo(nomeJogador);
+      newNodeJogo->escalacaoA = createNodeJogadorEscalado(nomeJogador);
     } else {
-      currentJogador = newNodeJogo->escalacaoA;
-      while (currentJogador->next!=NULL) {
-        currentJogador = currentJogador->next;
+      NodeJogador * currentJogadorEscalacao = newNodeJogo->escalacaoA;
+
+      while (currentJogadorEscalacao->next!=NULL){
+        currentJogadorEscalacao = currentJogadorEscalacao->next;
       }
 
-      currentJogador->next = createNodeJogadorEscaladoAoJogo(nomeJogador);
+      currentJogadorEscalacao->next = createNodeJogadorEscalado(nomeJogador);
     }
   }
 
-  printf("Insira a escalação para o time %s", timeB);
-  for(int aux = 1; aux < 12; aux++) {
-    char nomeJogador[100];
-    printf("Insira o nome do jogador %d: ", aux);
+  printf("Informe a escalacao para o time %s\n", timeB);
+  for(int auxB = 1; auxB < 12; auxB++) {
+    char * nomeJogador;
+    printf("Informe o nome do jogador %d:", auxB);
     scanf("%s", &nomeJogador);
 
-    NodeJogador * currentJogador = NULL;
-
     if(newNodeJogo->escalacaoB == NULL) {
-      newNodeJogo->escalacaoB = createNodeJogadorEscaladoAoJogo(nomeJogador);
+      newNodeJogo->escalacaoB = createNodeJogadorEscalado(nomeJogador);
     } else {
-      currentJogador = newNodeJogo->escalacaoB;
-      while (currentJogador->next!=NULL) {
-        currentJogador = currentJogador->next;
+      NodeJogador * currentJogadorEscalacao = newNodeJogo->escalacaoB;
+
+      while (currentJogadorEscalacao->next!=NULL){
+        currentJogadorEscalacao = currentJogadorEscalacao->next;
       }
 
-      currentJogador->next = createNodeJogadorEscaladoAoJogo(nomeJogador);
+      currentJogadorEscalacao->next = createNodeJogadorEscalado(nomeJogador);
     }
   }
-  
+
   newNodeJogo->next = NULL;
-  
+
   return newNodeJogo;
 }
 
-// Adicionar informações de novo Jogo
-
 void addJogoInfo(ListJogos * listJogos, char * timeA, char * timeB) {
-  NodeJogo * currentJogo = NULL;
-
   if(listJogos->nodeJogo == NULL) {
     listJogos->nodeJogo = createNodeJogo(timeA, timeB);
-  } else {
-    currentJogo = listJogos->nodeJogo;
-    while (currentJogo->next!=NULL) {
-      currentJogo = currentJogo->next;
-    }
-
-    currentJogo->next = createNodeJogo(timeA, timeB);
+    return;
   }
+  
+  NodeJogador * currentJogo = listJogos->nodeJogo;
+
+  while (currentJogo->next!=NULL){
+    currentJogo = currentJogo->next;
+  }
+
+  currentJogo->next = createNodeJogo(timeA, timeB);
 }
 
-// Exibir informações dos Jogos
-
-struct nodeTime * timeA, * timeB;
-struct nodeJogador * escalacaoA, * escalacaoB;
-struct nodeJogo * next;
-
 void displayJogosInfo(ListJogos * listJogos) {
-  if(listJogos->nodeJogo == NULL) {
-    printf("\nNão há cadastrados!\n");
-  } else {
-    NodeJogo * currentJogo = listJogos->nodeJogo;
-    for(; currentJogo != NULL; currentJogo = currentJogo->next) {
-      printf("%s\n", currentJogo->timeA);
-      printf("%s\n", currentJogo->timeB);
-    
-      printf("Escalacao A\n");
-      NodeJogador * escalacaoTimeA = currentJogo->escalacaoA;
-      for(; escalacaoTimeA != NULL; escalacaoTimeA = escalacaoTimeA->next) {
-        printf("%s\n", escalacaoTimeA->nome);
-      }
+  if(listJogos->nodeJogo == NULL)  {
+    printf("Não há jogos cadastrados");
+    return;
+  }
+  
+  NodeJogo * currentJogo = listJogos->nodeJogo;
+  
+  for(; currentJogo != NULL; currentJogo = currentJogo->next) {
+    printf("%s\n", currentJogo->timeA);
+    printf("%s\n", currentJogo->timeB);
 
-      printf("Escalacao B\n");
-      NodeJogador * escalacaoTimeB = currentJogo->escalacaoB;
-      for(; escalacaoTimeB != NULL; escalacaoTimeB = escalacaoTimeB->next) {
-        printf("%s\n", escalacaoTimeB->nome);
-      }
+    printf("Jogadores escalados do time %d\n", timeA);
+    NodeJogador * currentJogadorEscalacaoA = currentJogo->escalacaoA;
+    for(; currentJogadorEscalacaoA != NULL; currentJogadorEscalacaoA = currentJogadorEscalacaoA->next) {
+      printf("%s\n", &currentJogadorEscalacaoA->nome);
+    }
+
+    printf("Jogadores escalados do time %d\n", timeB);
+    NodeJogador * currentJogadorEscalacaoB = currentJogo->escalacaoB;
+    for(; currentJogadorEscalacaoB != NULL; currentJogadorEscalacaoB = currentJogadorEscalacaoB->next) {
+      printf("%s\n", &currentJogadorEscalacaoB->nome);
     }
   }
 }
