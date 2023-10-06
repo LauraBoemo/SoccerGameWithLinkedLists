@@ -274,6 +274,9 @@ NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
   newNodeTime->estadio = estadio;
   newNodeTime->cidade = cidade;
   
+	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	printf("-- Novo Time %s cadastrado com sucesso!\n", nome);
+	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   return newNodeTime;
 }
 
