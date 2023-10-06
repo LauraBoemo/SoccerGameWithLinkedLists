@@ -20,8 +20,8 @@ int main(void) {
   addTecnicoInfo(listTecnicos, "Murilo Tecnico");
   addTecnicoInfo(listTecnicos, "Laura Tecnica");
   addTecnicoInfo(listTecnicos, "Luana Tecnica");
-  addJogadorInfo(listJogadores, listTimes, "Laura Boemo", "Atacante", "Santa Maria", "Gremio", 20, 10);
-  addJogadorInfo(listJogadores, listTimes, "Murilo Leitao", "Goleiro", "Santa Maria", "Inter", 21, 1);
+  addJogadorInfo(listJogadores, "Laura Boemo", "Atacante", "Santa Maria", 20, 10);
+  addJogadorInfo(listJogadores, "Murilo Leitao", "Goleiro", "Santa Maria", 21, 1);
   // searchTimeInfo(listTimes, "Gremio");
   // addJogadorRelacionadoTime(listTimes, "Gremio", listJogadores, "Laura Boemo");
   // addJogadorRelacionadoTime(listTimes, "Gremio", listJogadores, "Murilo Leitao");
@@ -30,7 +30,10 @@ int main(void) {
   // displayTecnicosInfo(listTecnicos);
   // deleteTecnico(listTecnicos, "Murilo Tecnico");
   // displayTecnicosInfo(listTecnicos);
-  displayJogadoresInfo(listJogadores);
+  // displayJogadoresInfo(listJogadores);
+  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Laura Boemo");
+  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Murilo Leitao");
+  displayJogadoresRelaciondosAoTimeInfo(listTimes, "Gremio");
   // destroyJogadores(listJogadores);
   // displayJogadoresInfo(listJogadores);
   // searchTimeInfo(listTimes, "Gremio");

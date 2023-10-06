@@ -23,9 +23,10 @@ void displayTimesInfo(ListTimes * listTimes);
 void searchTimeInfo(ListTimes * listTimes, char * nome);
 void deleteTime(ListTimes * listTimes, char * nome);
 void destroyTimes(ListTimes * listTimes);
+void addTimeJogadorRelacionadoInfo(ListTimes * listTimes, ListJogadores * listJogadores, char * nomeTime, char * nomeJogador);
+void displayJogadoresRelaciondosAoTimeInfo(ListTimes * listTimes, char * nomeTime);
 
 // Tecnicos
-
 ListTecnicos * makeListTecnicos();
 void addTecnicoInfo(ListTecnicos * listTecnicos, char * nome);
 void displayTecnicosInfo(ListTecnicos * listTecnicos);
@@ -36,7 +37,7 @@ void destroyTecnicos(ListTecnicos * listTecnicos);
 // Jogadores
 
 ListJogadores * makeListJogadores();
-void addJogadorInfo(ListJogadores * listJogadores, ListTimes * listTimes, char * nome, char * posicao, char * cidade, char * timeRelacionado, int idade, int numeroCamisa);
+void addJogadorInfo(ListJogadores * listJogadores, char * nome, char * posicao, char * cidade, int idade, int numeroCamisa);
 void displayJogadoresInfo(ListJogadores * listJogadores);
 void searchJogadorInfo(ListJogadores * listJogadores, char * nome);
 void deleteJogador(ListJogadores * listJogadores, char * nome);
