@@ -40,7 +40,8 @@ int main(void) {
   // addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Laura Boemo");
   // addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Gremio", "Murilo Leitao");
   // displayJogadoresRelaciondosAoTimeInfo(listTimes, "Gremio");
-  addJogoInfo(listJogos, "Gremio", "Inter");
+  addJogoInfo(listJogos, "Grenal", "Gremio", "Inter");
+  addJogoLance(listJogos, "Grenal", "Gremio", "Laura Boemo", "Falta");
   displayJogosInfo(listJogos);
   return 0;
 }

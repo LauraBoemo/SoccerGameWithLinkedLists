@@ -52,7 +52,8 @@ void destroyJogadores(ListJogadores * listJogadores);
 
 // Jogo
 ListJogos * makeListJogos();
-void addJogoInfo(ListJogos * listJogos, char * timeA, char * timeB);
+void addJogoInfo(ListJogos * listJogos, char * nomeJogo, char * timeA, char * timeB);
 void displayJogosInfo(ListJogos * listJogos);
+void addJogoLance(ListJogos * listJogos, char * nomeJogo, char * nomeTime, char * nomeJogador, char * lance);
 
 #endif
