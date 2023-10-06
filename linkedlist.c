@@ -1,3 +1,11 @@
+// Notes
+// -- Nao pode ser possivel cadastrar um jogador que ja existe
+// -- Nao pode ser possivel cadastrar um time que ja existe
+// -- Nao pode ser possivel cadastrar um tecnico que ja existe
+// -- Nao pode ser possivel deletar um jogador que nao existe
+// -- Nao pode ser possivel deletar um time que nao existe
+// -- Nao pode ser possivel deletar um tecnico que nao existe
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,14 +16,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     Typedefining Técnico
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// Notes
-// -- Nao pode ser possivel cadastrar um jogador que ja existe
-// -- Nao pode ser possivel cadastrar um time que ja existe
-// -- Nao pode ser possivel cadastrar um tecnico que ja existe
-// -- Nao pode ser possivel deletar um jogador que nao existe
-// -- Nao pode ser possivel deletar um time que nao existe
-// -- Nao pode ser possivel deletar um tecnico que nao existe
 
 */
 
@@ -73,6 +73,29 @@ struct nodeTime {
 
 struct listTimes {
   NodeTime * nodeTime;
+};
+
+/*
+
+/*
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Typedefining Partidas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*/
+
+// Struct do nó gerado para cada partida 
+
+struct nodePartida {
+  char *nomeTimeA, *nomeTimeB, *estadio, *cidade; // Cada time deve ter ao menos os seguintes dados: nome, estádio, cidade
+  struct nodePartida * next;
+};
+
+// Struct da lista gerada para as partidas
+
+struct listPartidas {
+  NodePartida * nodePartida;
 };
 
 /*
