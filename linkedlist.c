@@ -180,9 +180,17 @@ void displayTecnicosInfo(ListTecnicos * listTecnicos) {
     printf("0 tecnicos cadastrados!");
   } else {
     NodeTecnico * current = listTecnicos->nodeTecnico;
+    int auxTecnicos = 1;
 
     for(; current != NULL; current = current->next) {
+	    puts("~~~~~~~~~~~");
+      printf("Técnico #%d\n", auxTecnicos);
+	    puts("~~~~~~~~~~~\n");
+
       printf("%s\n", current->nome);
+
+      auxTecnicos++;
+	    puts("~~~~~~~~~~~\n");
     }
   }
 }
@@ -192,12 +200,20 @@ void displayTecnicosInfo(ListTecnicos * listTecnicos) {
 void searchTecnicoInfo(ListTecnicos * listTecnicos, char * nome) {
   NodeTecnico * current = listTecnicos->nodeTecnico;
 
-  if(listTecnicos->nodeTecnico == NULL) 
+  if(listTecnicos->nodeTecnico == NULL) {
+    printf("Não existem técnicos cadastrados!\n\n");
     return;
+  }
   
   for(; current != NULL; current = current->next) {
     if(current->nome == nome) {
+	    puts("~~~~~~~~~~~");
+      printf("Resultado da pesquisa por %s\n", nome);
+	    puts("~~~~~~~~~~~\n");
+
       printf("%s\n", current->nome);
+
+	    puts("~~~~~~~~~~~\n");
     }
   }
 }
@@ -274,8 +290,8 @@ NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
   newNodeTime->estadio = estadio;
   newNodeTime->cidade = cidade;
   
-	puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	printf("-- Novo Time %s cadastrado com sucesso!\n", nome);
+	puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	printf("-- Novo Time cadastrado com sucesso: %s", nome);
 	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   return newNodeTime;
 }
@@ -302,7 +318,7 @@ void addTimeInfo(ListTimes * listTimes, char * nome, char * estadio, char * cida
 
 NodeJogador * createNodeJogadorRelacionadoAoTime(ListJogadores * listJogadores, char * nome) {
   if(listJogadores->nodeJogador == NULL) {
-    printf("Não existem jogadores cadastrados!");
+    printf("Não existem jogadores cadastrados!\n\n");
     return NULL;
   }
   
@@ -335,7 +351,7 @@ void addTimeJogadorRelacionadoInfo(ListTimes * listTimes, ListJogadores * listJo
   NodeTime * currentTime = listTimes->nodeTime;
 
   if(listTimes->nodeTime == NULL) {
-    printf("Não existem times cadastrados para relacionar a um jogador.");
+    printf("Não existem times cadastrados para relacionar a um jogador.\n\n");
     return;
   }
   
@@ -367,11 +383,19 @@ void displayTimesInfo(ListTimes * listTimes) {
     printf("0 times cadastrados!");
   } else {
     NodeTime * current = listTimes->nodeTime;
+    int auxTimes = 1;
 
     for(; current != NULL; current = current->next) {
+	    puts("~~~~~~~~~~~");
+      printf("Time #%d\n", auxTimes);
+	    puts("~~~~~~~~~~~\n");
+
       printf("%s\n", current->nome);
       printf("%s\n", current->estadio);
       printf("%s\n", current->cidade);
+
+      auxTimes++;
+	    puts("~~~~~~~~~~~\n");
     }
   }
 }
@@ -406,14 +430,22 @@ void displayJogadoresRelaciondosAoTimeInfo(ListTimes * listTimes, char * nomeTim
 void searchTimeInfo(ListTimes * listTimes, char * nome) {
   NodeTime * current = listTimes->nodeTime;
 
-  if(listTimes->nodeTime == NULL) 
+  if(listTimes->nodeTime == NULL) {
+    printf("Não existem times cadastrados!\n\n");
     return;
+  }
   
   for(; current != NULL; current = current->next) {
     if(current->nome == nome) {
+	    puts("~~~~~~~~~~~");
+      printf("Resultado da pesquisa por %s\n", nome);
+	    puts("~~~~~~~~~~~\n");
+
       printf("%s\n", current->nome);
       printf("%s\n", current->estadio);
       printf("%s\n", current->cidade);  
+
+	    puts("~~~~~~~~~~~\n");
     }
   }
 }
@@ -493,7 +525,11 @@ NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int 
   newNodeJogador->numeroCamisa = numeroCamisa;
   
   newNodeJogador->next = NULL;
-  
+
+	puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	printf("-- Novo Jogador cadastrado com sucesso: %s", nome);
+	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+
   return newNodeJogador;
 }
 
@@ -521,13 +557,21 @@ void displayJogadoresInfo(ListJogadores * listJogadores) {
     printf("\n0 jogadores cadastrados!\n");
   } else {
     NodeJogador * current = listJogadores->nodeJogador;
+    int auxContadores = 1;
 
     for(; current != NULL; current = current->next) {
-      printf("%s\n", current->nome);
-      printf("%s\n", current->posicao);
-      printf("%s\n", current->cidade);
-      printf("%d\n", current->idade);
-      printf("%d\n", current->numeroCamisa);
+	    puts("~~~~~~~~~~~");
+      printf("Jogador #%d\n", auxContadores);
+	    puts("~~~~~~~~~~~\n");
+
+      printf("Nome: %s\n", current->nome);
+      printf("Posição: %s\n", current->posicao);
+      printf("Cidade: %s\n", current->cidade);
+      printf("Idade: %d\n\n", current->idade);
+      printf("Numero Camisa: %d\n\n", current->numeroCamisa);
+      
+	    puts("~~~~~~~~~~~\n");
+      auxContadores++;
     }
   }
 }
@@ -537,17 +581,25 @@ void displayJogadoresInfo(ListJogadores * listJogadores) {
 void searchJogadorInfo(ListJogadores * listJogadores, char * nome) {
   NodeJogador * current = listJogadores->nodeJogador;
 
-  if(listJogadores->nodeJogador == NULL) 
+  if(listJogadores->nodeJogador == NULL) {
+    printf("Não existem jogadores cadastrados!\n\n");
     return;
+  } 
   
   for(; current != NULL; current = current->next) {
     if(current->nome == nome) {
+	    puts("~~~~~~~~~~~");
+      printf("Resultado da pesquisa por %s\n", nome);
+	    puts("~~~~~~~~~~~\n");
+
       printf("%s\n", current->nome);
       printf("%s\n", current->posicao);
       printf("%s\n", current->cidade);
       printf("%s\n", current->timeRelacionado);
       printf("%d\n", current->idade);
       printf("%d\n", current->numeroCamisa);
+
+	    puts("~~~~~~~~~~~\n");
     }
   }
 }
