@@ -26,295 +26,82 @@ int main(void) {
 	puts("    Jogo de Administração Futebolística com Listas Encadeadas");
 	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-  // Output opções do jogo 
-  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-  puts("    Ações possíveis:\n");
-  puts("    1) Cadastrar novo time.");
-  puts("    2) Cadastrar novo jogador.");
-  puts("    3) Cadastrar novo técnico.");
-  puts("    4) Visualizar times cadastrados.");
-  puts("    5) Visualizar jogadores cadastrados.");
-  puts("    6) Visualizar técnicos cadastrados.");
-  puts("    7) Pesquisar informações de um time.");
-  puts("    8) Pesquisar informações de um jogador.");
-  puts("    9) Pesquisar informações de um técnico.");
-  puts("    10) Remover um time.");
-  puts("    11) Remover um jogador.");
-  puts("    12) Remover um técnico.");
-  puts("    13) Relacionar um jogador a um time.");
-  puts("    14) Visualizar os jogadores relacionados a um time.");
-  puts("    15) Cadastrar novo jogo.");
-  puts("    16) Cadastrar lance a um jogo.");
-  puts("    17) Visualizar jogos cadastrados.");
-  puts("    18) Encerrar jogo.");
-  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  addTimeInfo(listTimes, "Time 01", "Arena 01", "Cidade 01");
+  addTimeInfo(listTimes, "Time 02", "Arena 02", "Cidade 02");
+  addTimeInfo(listTimes, "Time 03", "Arena 03", "Cidade 03");
+  addTimeInfo(listTimes, "Time 04", "Arena 04", "Cidade 04");
+  addTimeInfo(listTimes, "Time 05", "Arena 05", "Cidade 05");
+  addTimeInfo(listTimes, "Time 06", "Arena 06", "Cidade 06");
+  addTimeInfo(listTimes, "Time 07", "Arena 07", "Cidade 07");
+  addTimeInfo(listTimes, "Time 08", "Arena 08", "Cidade 08");
+  addTimeInfo(listTimes, "Time 09", "Arena 09", "Cidade 09");
+  addTimeInfo(listTimes, "Time 10", "Arena 10", "Cidade 10");
 
-  // Output de selecao do jogo
-  while(acaoSelecionada != 18) {
-    printf("Informe o número da ação que desejas realizar: ");
-    scanf("%d", &acaoSelecionada);
+  addJogadorInfo(listJogadores, "Jogador 01", "Posição 01", "Cidade 01", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 02", "Posição 02", "Cidade 02", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 03", "Posição 03", "Cidade 03", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 04", "Posição 04", "Cidade 04", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 05", "Posição 05", "Cidade 05", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 06", "Posição 06", "Cidade 06", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 07", "Posição 07", "Cidade 07", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 08", "Posição 08", "Cidade 08", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 09", "Posição 09", "Cidade 09", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 10", "Posição 10", "Cidade 10", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 11", "Posição 11", "Cidade 11", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 12", "Posição 12", "Cidade 12", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 13", "Posição 13", "Cidade 13", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 14", "Posição 14", "Cidade 14", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 15", "Posição 15", "Cidade 15", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 16", "Posição 16", "Cidade 16", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 17", "Posição 17", "Cidade 17", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 18", "Posição 18", "Cidade 18", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 19", "Posição 19", "Cidade 19", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 20", "Posição 20", "Cidade 20", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 21", "Posição 21", "Cidade 21", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 22", "Posição 22", "Cidade 22", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 23", "Posição 23", "Cidade 23", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 24", "Posição 24", "Cidade 24", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 25", "Posição 25", "Cidade 25", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 26", "Posição 26", "Cidade 26", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 27", "Posição 27", "Cidade 27", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 28", "Posição 28", "Cidade 28", 20, 10);
+  addJogadorInfo(listJogadores, "Jogador 29", "Posição 29", "Cidade 29", 20, 10);
 
-    if(acaoSelecionada == 1) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Cadastro de Time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-      
-      char nome[100], arena[100], cidade[100];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nome, 100, stdin);
-      printf("Informe a arena do time: ");
-      fflush(stdin);
-      fgets(arena, 100, stdin);
-      printf("Informe a cidade do time: ");
-      fflush(stdin);
-      fgets(cidade, 100, stdin);
+  addTecnicoInfo(listTecnicos, "Tecnico 01");
+  addTecnicoInfo(listTecnicos, "Tecnico 02");
+  addTecnicoInfo(listTecnicos, "Tecnico 03");
+  addTecnicoInfo(listTecnicos, "Tecnico 04");
+  addTecnicoInfo(listTecnicos, "Tecnico 05");
+  addTecnicoInfo(listTecnicos, "Tecnico 06");
+  addTecnicoInfo(listTecnicos, "Tecnico 07");
+  addTecnicoInfo(listTecnicos, "Tecnico 08");
+  addTecnicoInfo(listTecnicos, "Tecnico 09");
+  addTecnicoInfo(listTecnicos, "Tecnico 10");
 
-      addTimeInfo(listTimes, nome, arena, cidade);
-    }
+  displayTimesInfo(listTimes);
+  displayJogadoresInfo(listJogadores);
+  displayTecnicosInfo(listTecnicos);
 
-    if(acaoSelecionada == 2) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Cadastro de Jogador");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-      
-      char nome[50], posicao[50], cidade[50];
-      int idade, numeroCamisa;
-      
-      printf("Informe o nome do jogador: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-      printf("Informe a posição do jogador: ");
-      fflush(stdin);
-      fgets(posicao, 50, stdin);
-      printf("Informe a cidade do jogador: ");
-      fflush(stdin);
-      fgets(cidade, 50, stdin);
-      printf("Informe a idade do jogador: ");
-      scanf("%d", &idade);
-      printf("Informe o número da camisa do jogador: ");
-      scanf("%d", &numeroCamisa);
+  searchTimeInfo(listTimes, "Time 01");
+  searchJogadorInfo(listJogadores, "Jogador 01");
+  searchTecnicoInfo(listTecnicos, "Tecnico 01");
 
-      addJogadorInfo(listJogadores, nome, posicao, cidade, idade, numeroCamisa);
-    }
+  // deleteTime(listTimes, "Time 04");
+  // deleteJogador(listJogadores, "Jogador 01");
+  // deleteTecnico(listTecnicos, "Tecnico 01");
 
-    if(acaoSelecionada == 3) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Cadastro de Técnico");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-      
-      char nome[50];
-      
-      printf("Informe o nome do técnico: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
+  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Time 04", "Jogador 04");
+  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Time 03", "Jogador 05");
+  addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Time 02", "Jogador 06");
 
-      addTecnicoInfo(listTecnicos, nome);
-    }
+  displayJogadoresRelaciondosAoTimeInfo(listTimes, "Time 04");
+  displayJogadoresRelaciondosAoTimeInfo(listTimes, "Time 03");
+  displayJogadoresRelaciondosAoTimeInfo(listTimes, "Time 02");
 
-    if(acaoSelecionada == 4) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Tabela dos times cadastrados");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      displayTimesInfo(listTimes);
-    }
-
-    if(acaoSelecionada == 5) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Tabela dos times cadastrados");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      displayJogadoresInfo(listJogadores);
-    }
-
-    if(acaoSelecionada == 6) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Tabela dos técnicos cadastrados");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      displayTecnicosInfo(listTecnicos);
-    }
-
-    if(acaoSelecionada == 7) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Pesquisar informação de um time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      searchTimeInfo(listTimes, nome);
-    }
-
-    if(acaoSelecionada == 8) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Pesquisar informação de um jogador");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do jogador: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      searchTimeInfo(listJogadores, nome);
-    }
-
-    if(acaoSelecionada == 9) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Pesquisar informação de um técnico");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do técnico: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      searchTimeInfo(listTecnicos, nome);
-    }
-
-    if(acaoSelecionada == 10) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Remover um time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      deleteTime(listTimes, nome);
-    }
-
-    if(acaoSelecionada == 11) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Remover um jogador");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do jogador: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      deleteJogador(listJogadores, nome);
-    }
-
-    if(acaoSelecionada == 12) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Remover um técnico");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do técnico: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      deleteTecnico(listTecnicos, nome);
-    }
-
-    if(acaoSelecionada == 13) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Relacionar um jogador a um time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nomeTime[50], nomeJogador[50];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nomeTime, 50, stdin);
-
-      printf("Informe o nome do jogador: ");
-      fflush(stdin);
-      fgets(nomeJogador, 50, stdin);
-
-      addTimeJogadorRelacionadoInfo(listTimes, listJogadores, nomeTime, nomeJogador);
-    }
-
-    if(acaoSelecionada == 14) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Visualizar os jogadores relacionados a um time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      displayJogadoresRelaciondosAoTimeInfo(listTimes, nome);
-    }
-
-    if(acaoSelecionada == 15) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Visualizar os jogadores relacionados a um time");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50];
-      
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      displayJogadoresRelaciondosAoTimeInfo(listTimes, nome);
-    }
-
-    if(acaoSelecionada == 16) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Cadastrar novo jogo");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nome[50], timeA[50], timeB[50];
-      
-      printf("Informe o nome do jogo: ");
-      fflush(stdin);
-      fgets(nome, 50, stdin);
-
-      printf("Informe o nome do timeA: ");
-      fflush(stdin);
-      fgets(timeA, 50, stdin);
-
-      printf("Informe o nome do timeB: ");
-      fflush(stdin);
-      fgets(timeB, 50, stdin);
-
-      addJogoInfo(listJogos, nome, timeA, timeB);
-    }
-
-    if(acaoSelecionada == 17) {
-      puts("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      puts("-- Cadastrar lance a um jogo");
-      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-      char nomeJogo[50], nomeTime[50], nomeJogador[50], lance[50];
-      
-      printf("Informe o nome do jogo: ");
-      fflush(stdin);
-      fgets(nomeJogo, 50, stdin);
-
-      printf("Informe o nome do time: ");
-      fflush(stdin);
-      fgets(nomeTime, 50, stdin);
-
-      printf("Informe o nome do jogador: ");
-      fflush(stdin);
-      fgets(nomeJogador, 50, stdin);
-
-      printf("Informe o nome do lance: ");
-      fflush(stdin);
-      fgets(lance, 50, stdin);
-
-      addJogoLance(listJogos, nomeJogo, nomeTime, nomeJogador, lance);
-    }
-  }
-
+  addJogoInfo(listJogos, "Grenal", "Time 08", "Time 09");
+  addJogoLance(listJogos, "Grenal", "Time 08", "Jogador 09", "Falta");
+  addJogoLance(listJogos, "Grenal", "Time 09", "Jogador 02", "Falta");
+  displayJogosInfo(listJogos);
+  
   return 0;
 }

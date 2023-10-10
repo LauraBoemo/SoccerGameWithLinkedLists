@@ -152,6 +152,10 @@ NodeTime * createNodeTecnico(char * nome){
   
   newNodeTecnico->next = NULL;
   
+    
+  puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("-- Novo Técnico cadastrado com sucesso: %s\n", nome);
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   return newNodeTecnico;
 }
 
@@ -177,7 +181,9 @@ void addTecnicoInfo(ListTecnicos * listTecnicos, char * nome){
 
 void displayTecnicosInfo(ListTecnicos * listTecnicos) {
   if(listTecnicos->nodeTecnico == NULL) {
-    printf("0 tecnicos cadastrados!");
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Não há técnicos cadastrados!");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   } else {
     NodeTecnico * current = listTecnicos->nodeTecnico;
     int auxTecnicos = 1;
@@ -220,24 +226,28 @@ void searchTecnicoInfo(ListTecnicos * listTecnicos, char * nome) {
 
 // Deletar um Tecnico
 
-void deleteTecnico(ListTecnicos * listTecnicos, char * nome){
+void deleteTecnico(ListTecnicos * listTecnicos, char * nome) {                         
   NodeTecnico * current = listTecnicos->nodeTecnico;            
   NodeTecnico * previous = current;      
 
-  while(current != NULL){           
-    if(current->nome == nome){      
+  if(listTecnicos->nodeTecnico == NULL) {
+    printf("Não existem técnicos cadastrados!\n\n");
+    return;
+  }
+  
+  for(; current != NULL; current = current->next) {
+    if(current->nome == nome) {
       previous->next = current->next;
 
-      if(current == listTecnicos->nodeTecnico)
+      if(current == listTecnicos->nodeTecnico) 
         listTecnicos->nodeTecnico = current->next;
       
       free(current);
-      return;
-    }                  
-
-    previous = current;             
-    current = current->next;        
-  }                                 
+      puts("~~~~~~~~~~~");
+      printf("Técnico %s deletado\n", nome);
+      puts("~~~~~~~~~~~\n");
+    }
+  }       
 }         
 
 // Deletar todos os Tecnicos
@@ -279,7 +289,7 @@ ListTimes * makeListTimes() {
 
 // Criar Nó de Time
 
-NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
+NodeTime * createNodeTime(char nome[50], char estadio[50], char cidade[50]){
   NodeTime * newNodeTime = malloc(sizeof(NodeTime));
 
   if (!newNodeTime) {
@@ -291,7 +301,7 @@ NodeTime * createNodeTime(char * nome, char * estadio, char * cidade){
   newNodeTime->cidade = cidade;
   
 	puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	printf("-- Novo Time cadastrado com sucesso: %s", nome);
+	printf("-- Novo Time cadastrado com sucesso: %s\n", nome);
 	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   return newNodeTime;
 }
@@ -316,7 +326,7 @@ void addTimeInfo(ListTimes * listTimes, char * nome, char * estadio, char * cida
 
 // Criar Nó de Jogador relacionado ao Time
 
-NodeJogador * createNodeJogadorRelacionadoAoTime(ListJogadores * listJogadores, char * nome) {
+NodeJogador * createNodeJogadorRelacionadoAoTime(ListJogadores * listJogadores, char * nomeTime, char * nomeJogador) {
   if(listJogadores->nodeJogador == NULL) {
     printf("Não existem jogadores cadastrados!\n\n");
     return NULL;
@@ -331,7 +341,7 @@ NodeJogador * createNodeJogadorRelacionadoAoTime(ListJogadores * listJogadores, 
   }
 
   for(; currentJogador != NULL; currentJogador = currentJogador->next) {
-    if(currentJogador->nome == nome) {
+    if(currentJogador->nome == nomeJogador) {
       newNodeJogador->nome = currentJogador->nome;
       newNodeJogador->posicao = currentJogador->posicao;
       newNodeJogador->cidade = currentJogador->cidade;
@@ -340,6 +350,9 @@ NodeJogador * createNodeJogadorRelacionadoAoTime(ListJogadores * listJogadores, 
 
       newNodeJogador->next = NULL;
       
+      puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      printf("-- Novo Jogador relacionado ao time %s com sucesso: %s\n", nomeTime, nomeJogador);
+      puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
       return newNodeJogador;
     }
   }
@@ -358,7 +371,7 @@ void addTimeJogadorRelacionadoInfo(ListTimes * listTimes, ListJogadores * listJo
   for(; currentTime != NULL; currentTime = currentTime->next) {
     if(currentTime->nome == nomeTime) {
       if(listTimes->nodeTime->jogadores == NULL) {
-        listTimes->nodeTime->jogadores = createNodeJogadorRelacionadoAoTime(listJogadores, nomeJogador);
+        listTimes->nodeTime->jogadores = createNodeJogadorRelacionadoAoTime(listJogadores, currentTime->nome, nomeJogador);
         return;
       } else {
         NodeJogador * currentJogador = listTimes->nodeTime->jogadores;
@@ -367,7 +380,7 @@ void addTimeJogadorRelacionadoInfo(ListTimes * listTimes, ListJogadores * listJo
           currentJogador = currentJogador->next;
         }
 
-        currentJogador->next = createNodeJogadorRelacionadoAoTime(listJogadores, nomeJogador);
+        currentJogador->next = createNodeJogadorRelacionadoAoTime(listJogadores, currentTime->nome, nomeJogador);
         return;
       }
     }
@@ -380,7 +393,9 @@ void addTimeJogadorRelacionadoInfo(ListTimes * listTimes, ListJogadores * listJo
 
 void displayTimesInfo(ListTimes * listTimes) {
   if(listTimes->nodeTime == NULL) {
-    printf("0 times cadastrados!");
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Não há times cadastrados!");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   } else {
     NodeTime * current = listTimes->nodeTime;
     int auxTimes = 1;
@@ -390,9 +405,9 @@ void displayTimesInfo(ListTimes * listTimes) {
       printf("Time #%d\n", auxTimes);
 	    puts("~~~~~~~~~~~\n");
 
-      printf("%s\n", current->nome);
-      printf("%s\n", current->estadio);
-      printf("%s\n", current->cidade);
+      printf("Nome: %s\n", current->nome);
+      printf("Estadio: %s\n", current->estadio);
+      printf("Cidade: %s\n", current->cidade);
 
       auxTimes++;
 	    puts("~~~~~~~~~~~\n");
@@ -401,27 +416,36 @@ void displayTimesInfo(ListTimes * listTimes) {
 }
 
 // Exibir informações dos Jogadores relacionados ao Time
-
 void displayJogadoresRelaciondosAoTimeInfo(ListTimes * listTimes, char * nomeTime) {
-  NodeTime * currentTime = listTimes->nodeTime;
+  if(listTimes->nodeTime == NULL) {
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Não há times cadastrados!");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  } else {
+    NodeTime * current = listTimes->nodeTime;
 
-  if(listTimes->nodeTime == NULL)  {
-    printf("Não há times cadastrados");
-    return;
-  }
-  
-  for(; currentTime != NULL; currentTime = currentTime->next) {
-    if(currentTime->nome == nomeTime) {
-      NodeJogador * currentJogador = currentTime->jogadores;
+    for(; current != NULL; current = current->next) {
+      if(current->nome == nomeTime) {
+        puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        printf("Jogadores relacionados ao time %s:\n", nomeTime);
+        puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        NodeJogador * currentJogador = current->jogadores;
 
-      for(; currentJogador != NULL; currentJogador = currentJogador->next) {
-        printf("%s\n", currentJogador->nome);
-        printf("%s\n", currentJogador->posicao);
-        printf("%s\n", currentJogador->cidade);
-        printf("%d\n", currentJogador->idade);  
-        printf("%d\n", currentJogador->numeroCamisa);  
+        for(; currentJogador != NULL; currentJogador = currentJogador->next) {
+          puts("\n~~~~~~~~~~~");
+          printf("Nome: %s\n", currentJogador->nome);
+          printf("Posição: %s\n", currentJogador->posicao);
+          printf("Cidade: %s\n", currentJogador->cidade);
+          printf("Idade: %d\n", currentJogador->idade);  
+          printf("Número Camisa: %d\n", currentJogador->numeroCamisa);  
+          puts("~~~~~~~~~~~");
+        }
+
+        return;
       }
     }
+
+    printf("O time buscado não foi encontrado.");
   }
 }
 
@@ -452,24 +476,27 @@ void searchTimeInfo(ListTimes * listTimes, char * nome) {
 
 // Deletar um Time
 
-void deleteTime(ListTimes * listTimes, char * nome){
+void deleteTime(ListTimes * listTimes, char * nome) {
   NodeTime * current = listTimes->nodeTime;            
-  NodeTime * previous = current;      
+  NodeTime * previous = current;         
 
   while(current != NULL){           
     if(current->nome == nome){      
       previous->next = current->next;
-
+      
       if(current == listTimes->nodeTime)
         listTimes->nodeTime = current->next;
-      
-      free(current);
-      return;
-    }                  
 
+      free(current);
+
+      puts("~~~~~~~~~~~");
+      printf("Time %s deletado\n", nome);
+      puts("~~~~~~~~~~~\n");
+    }                               
+    
     previous = current;             
     current = current->next;        
-  }                                 
+  }                      
 }     
 
 // Deletar todos os Times
@@ -527,7 +554,7 @@ NodeJogador * createNodeJogador(char * nome, char * posicao, char * cidade, int 
   newNodeJogador->next = NULL;
 
 	puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	printf("-- Novo Jogador cadastrado com sucesso: %s", nome);
+	printf("-- Novo Jogador cadastrado com sucesso: %s\n", nome);
 	puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
   return newNodeJogador;
@@ -554,7 +581,9 @@ void addJogadorInfo(ListJogadores * listJogadores, char * nome, char * posicao, 
 
 void displayJogadoresInfo(ListJogadores * listJogadores) {
   if(listJogadores->nodeJogador == NULL) {
-    printf("\n0 jogadores cadastrados!\n");
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Não há jogadores cadastrados!");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   } else {
     NodeJogador * current = listJogadores->nodeJogador;
     int auxContadores = 1;
@@ -595,7 +624,6 @@ void searchJogadorInfo(ListJogadores * listJogadores, char * nome) {
       printf("%s\n", current->nome);
       printf("%s\n", current->posicao);
       printf("%s\n", current->cidade);
-      printf("%s\n", current->timeRelacionado);
       printf("%d\n", current->idade);
       printf("%d\n", current->numeroCamisa);
 
@@ -608,22 +636,26 @@ void searchJogadorInfo(ListJogadores * listJogadores, char * nome) {
 
 void deleteJogador(ListJogadores * listJogadores, char * nome) {
   NodeJogador * current = listJogadores->nodeJogador;            
-  NodeJogador * previous = current;      
+  NodeJogador * previous = current;               
 
-  while(current != NULL){           
-    if(current->nome == nome){      
+  if(listJogadores->nodeJogador == NULL) {
+    printf("Não existem jogadores cadastrados!\n\n");
+    return;
+  }
+  
+  for(; current != NULL; current = current->next) {
+    if(current->nome == nome) {
       previous->next = current->next;
 
-      if(current == listJogadores->nodeJogador)
+      if(current == listJogadores->nodeJogador) 
         listJogadores->nodeJogador = current->next;
       
       free(current);
-      return;
-    }                  
-
-    previous = current;             
-    current = current->next;        
-  }                                 
+      puts("~~~~~~~~~~~");
+      printf("Jogador %s deletado\n", nome);
+      puts("~~~~~~~~~~~\n");
+    }
+  }
 }  
 
 // Deletar todos os Jogadores
@@ -686,11 +718,17 @@ NodeJogo * createNodeJogo(char * nomeJogo, char * timeA, char * timeB) {
     return NULL;
   }
 
+  puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("Informe as escalações do jogo: %s\n", nomeJogo);
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
   newNodeJogo->nomeJogo = nomeJogo;
   newNodeJogo->timeA = timeA;
   newNodeJogo->timeB = timeB;
 
-  printf("Informe a escalacao para o time %s\n", timeA);
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("Informe a escalação para o time: %s\n", timeA);
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
   for(int auxA = 1; auxA < 12; auxA++) {
     char * nomeJogador;
     printf("Informe o nome do jogador %d:", auxA);
@@ -709,7 +747,9 @@ NodeJogo * createNodeJogo(char * nomeJogo, char * timeA, char * timeB) {
     }
   }
 
-  printf("Informe a escalacao para o time %s\n", timeB);
+  puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("Informe a escalação para o time: %s\n", timeB);
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
   for(int auxB = 1; auxB < 12; auxB++) {
     char * nomeJogador;
     printf("Informe o nome do jogador %d:", auxB);
@@ -730,6 +770,9 @@ NodeJogo * createNodeJogo(char * nomeJogo, char * timeA, char * timeB) {
 
   newNodeJogo->next = NULL;
 
+  puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("-- Novo jogo cadastrado com sucesso!\n");
+  puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
   return newNodeJogo;
 }
 
@@ -800,26 +843,33 @@ void displayJogosInfo(ListJogos * listJogos) {
   NodeJogo * currentJogo = listJogos->nodeJogo;
   
   for(; currentJogo != NULL; currentJogo = currentJogo->next) {
-    printf("%s\n", currentJogo->timeA);
-    printf("%s\n", currentJogo->timeB);
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Informações da partida %s: %s X %s \n", currentJogo->nomeJogo, currentJogo->timeA, currentJogo->timeB);
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     printf("Jogadores escalados do time %s\n", currentJogo->timeA);
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     NodeJogador * currentJogadorEscalacaoA = currentJogo->escalacaoA;
     for(; currentJogadorEscalacaoA != NULL; currentJogadorEscalacaoA = currentJogadorEscalacaoA->next) {
       printf("%s\n", &currentJogadorEscalacaoA->nome);
     }
 
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     printf("Jogadores escalados do time %s\n", currentJogo->timeB);
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     NodeJogador * currentJogadorEscalacaoB = currentJogo->escalacaoB;
     for(; currentJogadorEscalacaoB != NULL; currentJogadorEscalacaoB = currentJogadorEscalacaoB->next) {
       printf("%s\n", &currentJogadorEscalacaoB->nome);
     }
 
-    printf("\n\nLances marcados ao longo da partida\n");
+    puts("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    printf("Lances marcados ao longo da partida\n");
+    puts("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     NodeLance * currentLance = currentJogo->lance;
     int auxLances = 1;
     for(; currentLance != NULL; currentLance = currentLance->next) {
-      printf("%d. O jogador %s, do time %s, executou o seguinte lance: %s.", auxLances, currentLance->jogador, currentLance->time, currentLance->lance);
+      printf("%d. O jogador %s, do time %s, executou o seguinte lance: %s.\n", auxLances, currentLance->jogador, currentLance->time, currentLance->lance);
       auxLances++;
     }
   }
