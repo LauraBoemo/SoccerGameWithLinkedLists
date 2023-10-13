@@ -86,9 +86,9 @@ int main(void) {
   searchJogadorInfo(listJogadores, "Jogador 01");
   searchTecnicoInfo(listTecnicos, "Tecnico 01");
 
-  // deleteTime(listTimes, "Time 04");
-  // deleteJogador(listJogadores, "Jogador 01");
-  // deleteTecnico(listTecnicos, "Tecnico 01");
+  deleteTime(listTimes, "Time 09");
+  deleteJogador(listJogadores, "Jogador 09");
+  deleteTecnico(listTecnicos, "Tecnico 05");
 
   addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Time 04", "Jogador 04");
   addTimeJogadorRelacionadoInfo(listTimes, listJogadores, "Time 03", "Jogador 05");
